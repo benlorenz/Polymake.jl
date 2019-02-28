@@ -24,6 +24,12 @@ function list_big_objects($) {
    return new Array<String>(uniq(map {$_->full_name} grep {!defined($_->generic) } @{User::application($app)->object_types}));
 }
 
+function big_object_type_params($$) {
+   my ($app,$typename) = @_;
+   my $gen_type = User::application($app)->eval_type($typename,1);
+   return new Array<String>(map {$_->name} @{$gen_type->params // []});
+}
+
 # map some perl based types without typeinfo to c++ types
 function classify_perl_pv($) {
    my ($pv) = @_;
