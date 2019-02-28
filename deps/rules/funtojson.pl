@@ -46,6 +46,7 @@ sub help_to_hash($$$) {
    push @{$fun{args}}, ("Anything") x ($fun{mandatory} - $numparam)
       if $fun{mandatory} > $numparam;
    $fun{type_params} = defined $ann->{tparam} ? scalar(@{$ann->{tparam}}) : 0;
+   $fun{mandatory_type_params} = $ann->{mandatory_tparams} // 0;
    # not needed $fun{include} = ;
    push @{$fun{args}}, "OptionSet" if defined $ann->{options};
    $fun{return} = $help->return_type if defined($help->return_type);
